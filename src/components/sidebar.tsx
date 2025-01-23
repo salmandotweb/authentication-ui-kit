@@ -8,21 +8,20 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { motion } from "framer-motion";
 import { FiCornerUpLeft, FiCornerUpRight } from "react-icons/fi";
-import { RiLogoutCircleLine, RiMoneyDollarCircleFill } from "react-icons/ri";
+import { RiLogoutCircleLine } from "react-icons/ri";
 import { RiMenuFill } from "react-icons/ri";
 import { deleteCookie } from "cookies-next";
 import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { siteConfig } from "@/config/site";
-import { TbHomeFilled } from "react-icons/tb";
-import { MdAttachEmail } from "react-icons/md";
-import { MdEmail } from "react-icons/md";
-import { MdMarkEmailRead } from "react-icons/md";
-import { MdOutlineImportContacts } from "react-icons/md";
-import { SiScrapbox } from "react-icons/si";
-import { IoSettings } from "react-icons/io5";
-import { FaAngleRight } from "react-icons/fa6";
 import Image from "next/image";
+import {
+	ClockIcon,
+	HomeIcon,
+	LockIcon,
+	User2Icon,
+	UserPlusIcon,
+} from "lucide-react";
 
 type SidebarItem = {
 	icon: React.ComponentType<any>;
@@ -34,39 +33,24 @@ type SidebarItem = {
 export const sidebarGroups: { name: string; items: SidebarItem[] }[] = [
 	{
 		name: "Overview",
-		items: [{ icon: TbHomeFilled, label: "Dashboard", href: "/dashboard" }],
+		items: [{ icon: HomeIcon, label: "Dashboard", href: "/dashboard" }],
 	},
 	{
-		name: "Data Collection",
-		items: [{ icon: SiScrapbox, label: "Scraping", href: "/scraping" }],
-	},
-	{
-		name: "Email Operations",
+		name: "Account Management",
 		items: [
-			{ icon: MdMarkEmailRead, label: "Verify Email", href: "/verify-email" },
+			{ icon: User2Icon, label: "Manage Profile", href: "/profile" },
+			{ icon: LockIcon, label: "Account Security", href: "/security" },
 			{
-				icon: MdEmail,
-				label: "Email Campaign",
-				href: "/email-campaign",
+				icon: UserPlusIcon,
+				label: "Connected accounts",
+				href: "/connected-accounts",
 			},
-			{ icon: MdAttachEmail, label: "Connect Email", href: "/connect-email" },
+			{
+				icon: ClockIcon,
+				label: "Session management",
+				href: "/session-management",
+			},
 		],
-	},
-	{
-		name: "Contact Management",
-		items: [
-			{ icon: MdOutlineImportContacts, label: "Contacts", href: "/contacts" },
-		],
-	},
-	{
-		name: "Billing",
-		items: [
-			{ icon: RiMoneyDollarCircleFill, label: "Billing", href: "/billing" },
-		],
-	},
-	{
-		name: "System",
-		items: [{ icon: IoSettings, label: "Settings", href: "/settings" }],
 	},
 ];
 
@@ -143,8 +127,8 @@ const Sidebar = () => {
 											className={cn(
 												"w-full justify-start px-2",
 												pathname === item.href
-													? `font-medium hover:bg-secondary/70 bg-secondary/70`
-													: "hover:bg-secondary/70"
+													? `font-medium hover:bg-primary/20 bg-primary/20`
+													: "hover:bg-primary/20"
 											)}
 										>
 											<item.icon
@@ -165,10 +149,6 @@ const Sidebar = () => {
 											)}
 
 											{pathname === item.href && !isCollapsed && (
-												<FaAngleRight className="h-3 w-3 ml-auto" />
-											)}
-
-											{pathname === item.href && !isCollapsed && (
 												<div className="absolute left-0 top-0 h-full w-2 bg-primary rounded-tr-2xl rounded-br-2xl" />
 											)}
 										</Button>
@@ -183,7 +163,7 @@ const Sidebar = () => {
 			<div className="px-3 py-4 border-t">
 				<Button
 					variant="ghost"
-					className={cn("w-full justify-start hover:bg-secondary/70")}
+					className={cn("w-full justify-start hover:bg-primary/20")}
 					onClick={handleLogout}
 				>
 					<RiLogoutCircleLine
