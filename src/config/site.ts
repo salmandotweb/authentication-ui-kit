@@ -12,7 +12,7 @@ export type SiteConfig = {
 export type SiteStatus = "coming soon" | "maintainance" | "live"
 
 export const siteConfig: SiteConfig = {
-   name: "Boilerplate",
+   name: "Shipcrew",
    description:
       "A Next.js boilerplate with authentication and more",
    url: "https://example.com",
