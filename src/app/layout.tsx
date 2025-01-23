@@ -17,38 +17,38 @@ const font = Outfit({
 
 export const metadata: Metadata = {
 	title: {
-		default: siteConfig.name,
-		template: `%s | ${siteConfig.name}`,
+		default: "Auth UI Kit",
+		template: `%s | Auth UI Kit`,
 	},
-	description: siteConfig.description,
-	metadataBase: new URL(siteConfig.url),
-	keywords: [],
+	description:
+		"Modern authentication UI kit built with Next.js, Tailwind CSS and Shadcn UI",
+	metadataBase: new URL("https://auth-ui-kit.vercel.app"),
+	keywords: [
+		"authentication",
+		"ui kit",
+		"next.js",
+		"react",
+		"tailwind css",
+		"shadcn ui",
+		"auth flows",
+		"login",
+		"signup",
+		"password reset",
+	],
 	openGraph: {
 		type: "website",
 		locale: "en_US",
-		url: siteConfig.url,
-		title: siteConfig.name,
-		description: siteConfig.description,
-		siteName: siteConfig.name,
-		// images: [
-		// 	{
-		// 		url: ogImage.src,
-		// 		width: ogImage.width,
-		// 		height: ogImage.height,
-		// 	},
-		// ],
+		url: "https://auth-ui-kit.vercel.app",
+		title: "Auth UI Kit",
+		description:
+			"Modern authentication UI kit built with Next.js, Tailwind CSS and Shadcn UI",
+		siteName: "Auth UI Kit",
 	},
 	twitter: {
 		card: "summary_large_image",
-		title: siteConfig.name,
-		description: siteConfig.description,
-		// images: [
-		// 	{
-		// 		url: twitterOgImage.src,
-		// 		width: twitterOgImage.width,
-		// 		height: twitterOgImage.height,
-		// 	},
-		// ],
+		title: "Auth UI Kit",
+		description:
+			"Modern authentication UI kit built with Next.js, Tailwind CSS and Shadcn UI",
 		creator: "@salmandotweb",
 	},
 	icons: {

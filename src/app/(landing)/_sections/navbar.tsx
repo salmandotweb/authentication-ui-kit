@@ -15,20 +15,20 @@ type link = {
 
 const links: link[] = [
 	{
+		label: "Components",
+		href: "/#components",
+	},
+	{
 		label: "Features",
 		href: "/#features",
 	},
 	{
-		label: "How It Works",
-		href: "/#how-it-works",
+		label: "Documentation",
+		href: "/docs",
 	},
 	{
-		label: "Pricing",
-		href: "/#pricing",
-	},
-	{
-		label: "FAQ",
-		href: "/#faq",
+		label: "GitHub",
+		href: "https://github.com/yourusername/auth-ui-kit",
 	},
 ];
 

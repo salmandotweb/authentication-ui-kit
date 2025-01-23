@@ -10,17 +10,18 @@ const Header = () => {
 			<div className="flex-grow flex items-center justify-center flex-col z-20 pt-20 gap-16">
 				<div className="flex items-center justify-center text-center flex-col gap-4 md:gap-8 max-w-6xl px-4">
 					<h1 className="lg:text-7xl md:text-6xl sm:text-5xl text-4xl font-semibold">
-						Build Better Software Faster
+						Modern Authentication UI Kit
 					</h1>
 					<p className="md:text-2xl sm:text-lg text-base font-medium max-w-lg px-4 md:px-0">
-						The modern platform for rapid development and seamless deployment
+						Beautiful, responsive authentication flows built with Next.js and
+						Tailwind CSS
 					</p>
 
 					<div className="flex items-center justify-center gap-4 flex-col">
-						<Link href="/dashboard">
+						<Link href="/sign-up">
 							<Button icon={<ArrowTopRightIcon />}>Get Started</Button>
 						</Link>
-						<p className="text-sm font-medium">Free trial available</p>
+						<p className="text-sm font-medium">Open source and free to use</p>
 					</div>
 				</div>
 
