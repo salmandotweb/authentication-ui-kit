@@ -15,17 +15,19 @@ import { useRouter } from "next/navigation";
 import { sidebarGroups } from "./sidebar";
 import ProfileDropdown from "./profileDropdown";
 import Upgrade from "./upgrade";
-import { useApiQuery } from "@/hooks/useApi";
-import { Response } from "@/interfaces/response";
-import { ClipLoader } from "react-spinners";
-import { User } from "@/interfaces/user";
 
 const Topbar = () => {
 	const [open, setOpen] = useState(false);
 
-	const { data: userData, isFetching: fetchingUser } = useApiQuery<
-		Response<User>
-	>(["user"], "/users/me");
+	const user = {
+		avatarUrl: "https://github.com/shadcn.png",
+		createdAt: new Date().toISOString(),
+		dateOfBirth: null,
+		email: "john.doe@example.com",
+		firstName: "John",
+		id: "123",
+		isEmailVerified: true,
+	};
 
 	const isPro = false;
 
@@ -53,14 +55,12 @@ const Topbar = () => {
 
 			<div className="flex items-center justify-end gap-2 sm:gap-4">
 				{!isPro && <Upgrade />}
-				{fetchingUser ? (
-					<ClipLoader size={13} />
-				) : (
-					<p className="text-xs sm:text-sm font-medium hidden lg:block">
-						Hi, {userData?.data?.firstName} 👋
-					</p>
-				)}
-				<ProfileDropdown user={userData?.data!} isPro={isPro} />
+
+				<p className="text-xs sm:text-sm font-medium hidden lg:block">
+					Hi, {user.firstName} 👋
+				</p>
+
+				<ProfileDropdown user={user} isPro={isPro} />
 			</div>
 
 			<CommandDialog open={open} onOpenChange={setOpen}>
