@@ -20,6 +20,7 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import MagicLinkForm from "@/components/auth/magic-link-form";
+import { SocialAuthButton } from "@/components/auth/social-auth-button";
 
 const signInSchema = z.object({
 	email: z.string().email({
@@ -73,16 +74,11 @@ export default function SignIn() {
 			</div>
 
 			<div className="space-y-4">
-				<Button
-					variant="outline"
-					className="w-full"
-					onClick={() => {
-						// Add Google sign-in logic
-					}}
-				>
-					<FcGoogle className="mr-2 h-4 w-4" />
-					Sign in with Google
-				</Button>
+				<div className="flex justify-center gap-2">
+					<SocialAuthButton provider="google" />
+					<SocialAuthButton provider="github" />
+					<SocialAuthButton provider="discord" />
+				</div>
 
 				<div className="relative">
 					<div className="absolute inset-0 flex items-center">

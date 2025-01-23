@@ -19,6 +19,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
+import { SocialAuthButton } from "@/components/auth/social-auth-button";
 
 const signUpSchema = z.object({
 	firstName: z.string().min(2, {
@@ -87,16 +88,11 @@ export default function SignUp() {
 			</div>
 
 			<div className="space-y-4">
-				<Button
-					variant="outline"
-					className="w-full"
-					onClick={() => {
-						// Add Google sign-up logic
-					}}
-				>
-					<FcGoogle className="mr-2 h-4 w-4" />
-					Sign up with Google
-				</Button>
+				<div className="flex justify-center gap-2">
+					<SocialAuthButton provider="google" />
+					<SocialAuthButton provider="github" />
+					<SocialAuthButton provider="discord" />
+				</div>
 
 				<div className="relative">
 					<div className="absolute inset-0 flex items-center">
