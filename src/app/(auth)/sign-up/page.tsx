@@ -49,7 +49,6 @@ const personalDetailsSchema = z.object({
 	}),
 });
 
-// Combine schemas for final submission
 const signUpSchema = emailSchema
 	.merge(passwordSchema)
 	.merge(personalDetailsSchema);
@@ -96,7 +95,16 @@ export default function SignUp() {
 	const { toast } = useToast();
 
 	const form = useForm<SignUpValues>({
-		resolver: zodResolver(signUpSchema),
+		resolver: async (values, context, options) => {
+			if (currentStep < steps.length - 1) {
+				return zodResolver(steps[currentStep].validationSchema)(
+					values,
+					context,
+					options
+				);
+			}
+			return zodResolver(signUpSchema)(values, context, options);
+		},
 		defaultValues: {
 			firstName: "",
 			lastName: "",
@@ -107,50 +115,33 @@ export default function SignUp() {
 	});
 
 	const onSubmit = async (values: SignUpValues) => {
-		if (currentStep < steps.length - 1) {
-			const currentFields = steps[currentStep].fields;
-			const currentStepSchema = steps[currentStep].validationSchema;
-			const stepValues = Object.fromEntries(
-				currentFields.map((field) => [field, values[field]])
-			);
-
-			try {
-				await currentStepSchema.parseAsync(stepValues);
+		try {
+			if (currentStep < steps.length - 1) {
 				setCurrentStep(currentStep + 1);
-				form.clearErrors();
-			} catch (error) {
 				return;
 			}
-		} else {
+
 			setIsLoading(true);
-			try {
-				const validatedData = await signUpSchema.parseAsync(values);
-				console.log("Form data:", validatedData);
 
-				// add your sign up api call here, for now we are just simulating a delay
-				await new Promise((resolve) => setTimeout(resolve, 1000));
+			await new Promise((resolve) => setTimeout(resolve, 1000));
 
-				toast({
-					title: "Account created!",
-					description: "Welcome aboard! Redirecting you to dashboard...",
-				});
+			setCookie("authToken", "demo-token");
 
-				await new Promise((resolve) => setTimeout(resolve, 500));
+			toast({
+				title: "Account created!",
+				description:
+					"Welcome aboard! You've successfully created your account.",
+			});
 
-				// update the auth token in the cookie
-				setCookie("authToken", "demo-token");
-				router.push("/dashboard");
-			} catch (error: any) {
-				console.error("Sign up error:", error);
-				toast({
-					title: "Error",
-					description:
-						error?.message || "Something went wrong. Please try again.",
-					variant: "destructive",
-				});
-			} finally {
-				setIsLoading(false);
-			}
+			router.push("/dashboard");
+		} catch (error) {
+			toast({
+				title: "Error",
+				description: "Something went wrong. Please try again.",
+				variant: "destructive",
+			});
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
