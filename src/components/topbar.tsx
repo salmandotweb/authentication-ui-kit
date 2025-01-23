@@ -1,87 +1,100 @@
 "use client";
 
-import { TbBasketSearch } from "react-icons/tb";
-import { Button } from "./ui/button";
+import { siteConfig } from "@/config/site";
+import Image from "next/image";
+import Link from "next/link";
 import {
-	CommandDialog,
-	CommandEmpty,
-	CommandGroup,
-	CommandInput,
-	CommandItem,
-	CommandList,
-} from "@/components/ui/command";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { sidebarGroups } from "./sidebar";
-import ProfileDropdown from "./profileDropdown";
-import Upgrade from "./upgrade";
+	AccountSetting03Icon,
+	DashboardCircleSettingsIcon,
+	Notification01Icon,
+	SearchingIcon,
+	Settings01Icon,
+	UserSettings01Icon,
+} from "hugeicons-react";
+import { Button } from "./ui/button";
+import { UserCircle2 } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+
+const links = [
+	{
+		icon: <DashboardCircleSettingsIcon className="w-4 h-4" />,
+		label: "Dashboard",
+		href: "/dashboard",
+	},
+	{
+		icon: <Settings01Icon className="w-4 h-4" />,
+		label: "Settings",
+		href: "/settings",
+	},
+	{
+		icon: <UserSettings01Icon className="w-4 h-4" />,
+		label: "Connected Accounts",
+		href: "/connected-accounts",
+	},
+	{
+		icon: <AccountSetting03Icon className="w-4 h-4" />,
+		label: "Session Management",
+		href: "/session-management",
+	},
+];
 
 const Topbar = () => {
-	const [open, setOpen] = useState(false);
+	const pathname = usePathname();
 
-	const user = {
-		avatarUrl: "https://github.com/shadcn.png",
-		createdAt: new Date().toISOString(),
-		dateOfBirth: null,
-		email: "john.doe@example.com",
-		firstName: "John",
-		id: "123",
-		isEmailVerified: true,
-	};
-
-	const isPro = false;
-
-	const router = useRouter();
-
-	const handleSearch = (command: string) => {
-		setOpen(false);
-		if (command.trim()) {
-			router.push(command);
-		}
+	const isActive = (href: string) => {
+		return pathname === href;
 	};
 
 	return (
-		<div className="w-full bg-white p-2 sm:p-4 flex items-center justify-between border-b">
-			<div className="flex-1 max-w-xl pl-14 md:pl-0">
+		<div className="w-full bg-white p-2 sm:p-4 flex items-center justify-between">
+			<div className="flex items-center gap-2">
+				<Image
+					src={siteConfig.logo}
+					alt={siteConfig.name}
+					width={28}
+					height={28}
+				/>
+				<h1 className="text-2xl font-semibold">{siteConfig.name}</h1>
+			</div>
+
+			<div className="flex items-center gap-2">
+				{links.map((link) => (
+					<Link key={link.href} href={link.href}>
+						<Button
+							variant="ghost"
+							icon={link.icon}
+							className={cn(
+								"text-md",
+								isActive(link.href) &&
+									"text-primary hover:text-primary bg-primary/20",
+								"hover:text-primary hover:bg-primary/20"
+							)}
+						>
+							{link.label}
+						</Button>
+					</Link>
+				))}
+			</div>
+
+			<div className="flex items-center gap-2">
 				<Button
 					variant="default"
-					className="justify-start text-left font-normal bg-gray-100 hover:bg-gray-200 text-black w-full max-w-[300px]"
-					onClick={() => setOpen(true)}
+					className="justify-start text-left font-normal bg-gray-200 hover:bg-gray-300 text-black w-[260px]"
+					onClick={() => {}}
 				>
-					<TbBasketSearch className="mr-2 h-4 w-4" />
+					<SearchingIcon className="mr-2 h-4 w-4" />
 					<span className="hidden sm:inline">Search...</span>
 				</Button>
+
+				<Button variant="secondary" className="bg-gray-200 hover:bg-gray-300">
+					<Notification01Icon className="h-4 w-4" />
+				</Button>
+
+				<Button variant="secondary" className="bg-gray-200 hover:bg-gray-300">
+					<UserCircle2 className="h-4 w-4" />
+				</Button>
 			</div>
-
-			<div className="flex items-center justify-end gap-2 sm:gap-4">
-				{!isPro && <Upgrade />}
-
-				<p className="text-xs sm:text-sm font-medium hidden lg:block">
-					Hi, {user.firstName} 👋
-				</p>
-
-				<ProfileDropdown user={user} isPro={isPro} />
-			</div>
-
-			<CommandDialog open={open} onOpenChange={setOpen}>
-				<CommandInput placeholder="Type a command or search..." />
-				<CommandList>
-					<CommandEmpty>No results found.</CommandEmpty>
-					{sidebarGroups.map((group) => (
-						<CommandGroup key={group.name} heading={group.name}>
-							{group.items.map((item) => (
-								<CommandItem
-									key={item.href}
-									onSelect={() => handleSearch(item.href)}
-								>
-									<item.icon className="mr-2 h-5 w-4" />
-									{item.label}
-								</CommandItem>
-							))}
-						</CommandGroup>
-					))}
-				</CommandList>
-			</CommandDialog>
 		</div>
 	);
 };
