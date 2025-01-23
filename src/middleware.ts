@@ -3,7 +3,12 @@ import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
    const token = request.cookies.get('authToken')?.value;
-   const isAuthRoute = request.nextUrl.pathname === '/sign-in' || request.nextUrl.pathname === '/sign-up' || request.nextUrl.pathname === '/verify' || request.nextUrl.pathname === '/forgot-password' || request.nextUrl.pathname === '/reset-password';
+   const isAuthRoute = request.nextUrl.pathname === '/sign-in' ||
+      request.nextUrl.pathname === '/sign-up' ||
+      request.nextUrl.pathname === '/verify' ||
+      request.nextUrl.pathname === '/verify-magic-link' ||
+      request.nextUrl.pathname === '/forgot-password' ||
+      request.nextUrl.pathname === '/reset-password';
    const landingPage = request.nextUrl.pathname === '/';
 
    if (isAuthRoute) {

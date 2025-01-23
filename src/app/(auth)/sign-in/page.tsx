@@ -19,14 +19,13 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
+import MagicLinkForm from "@/components/auth/magic-link-form";
 
 const signInSchema = z.object({
 	email: z.string().email({
 		message: "Please enter a valid email address.",
 	}),
-	password: z.string().min(1, {
-		message: "Password is required.",
-	}),
+	password: z.string().optional(),
 });
 
 type SignInValues = z.infer<typeof signInSchema>;
@@ -34,6 +33,9 @@ type SignInValues = z.infer<typeof signInSchema>;
 export default function SignIn() {
 	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
+	const [authMethod, setAuthMethod] = useState<"password" | "magic-link">(
+		"password"
+	);
 
 	const form = useForm<SignInValues>({
 		resolver: zodResolver(signInSchema),
@@ -67,9 +69,7 @@ export default function SignIn() {
 		>
 			<div className="space-y-2 text-center">
 				<h1 className="text-3xl font-bold">Welcome back</h1>
-				<p className="text-muted-foreground">
-					Enter your email to sign in to your account
-				</p>
+				<p className="text-muted-foreground">Sign in to your account</p>
 			</div>
 
 			<div className="space-y-4">
@@ -95,51 +95,72 @@ export default function SignIn() {
 					</div>
 				</div>
 
-				<Form {...form}>
-					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-						<FormField
-							control={form.control}
-							name="email"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Email</FormLabel>
-									<FormControl>
-										<Input
-											placeholder="m@example.com"
-											type="email"
-											{...field}
-											disabled={isLoading}
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
+				<div className="flex gap-2 w-full">
+					<Button
+						variant={authMethod === "password" ? "default" : "outline"}
+						className="flex-1"
+						onClick={() => setAuthMethod("password")}
+					>
+						Password
+					</Button>
+					<Button
+						variant={authMethod === "magic-link" ? "default" : "outline"}
+						className="flex-1"
+						onClick={() => setAuthMethod("magic-link")}
+					>
+						Magic Link
+					</Button>
+				</div>
 
-						<FormField
-							control={form.control}
-							name="password"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Password</FormLabel>
-									<FormControl>
-										<Input
-											type="password"
-											placeholder="********"
-											{...field}
-											disabled={isLoading}
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
+				{authMethod === "password" ? (
+					<Form {...form}>
+						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+							<FormField
+								control={form.control}
+								name="email"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Email</FormLabel>
+										<FormControl>
+											<Input
+												placeholder="m@example.com"
+												type="email"
+												{...field}
+												disabled={isLoading}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
 
-						<Button className="w-full" type="submit" disabled={isLoading}>
-							{isLoading ? "Signing in..." : "Sign in"}
-						</Button>
-					</form>
-				</Form>
+							<FormField
+								control={form.control}
+								name="password"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Password</FormLabel>
+										<FormControl>
+											<Input
+												type="password"
+												placeholder="********"
+												{...field}
+												disabled={isLoading}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<Button className="w-full" type="submit" disabled={isLoading}>
+								{isLoading ? "Signing in..." : "Sign in"}
+							</Button>
+						</form>
+					</Form>
+				) : (
+					<MagicLinkForm />
+				)}
 			</div>
 
 			<div className="text-center text-sm">
