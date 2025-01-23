@@ -4,24 +4,58 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { setCookie } from "cookies-next";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "@/components/ui/form";
+
+const signInSchema = z.object({
+	email: z.string().email({
+		message: "Please enter a valid email address.",
+	}),
+	password: z.string().min(1, {
+		message: "Password is required.",
+	}),
+});
+
+type SignInValues = z.infer<typeof signInSchema>;
 
 export default function SignIn() {
 	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
 
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
+	const form = useForm<SignInValues>({
+		resolver: zodResolver(signInSchema),
+		defaultValues: {
+			email: "",
+			password: "",
+		},
+	});
+
+	const onSubmit = async (values: SignInValues) => {
 		setIsLoading(true);
-		// Add your sign-in logic here
-		// For demo, we'll just simulate a delay
-		await new Promise((resolve) => setTimeout(resolve, 1000));
-		setCookie("authToken", "demo-token");
-		router.push("/dashboard");
+		try {
+			// Add your sign-in logic here
+			// For demo, we'll just simulate a delay
+			await new Promise((resolve) => setTimeout(resolve, 1000));
+			setCookie("authToken", "demo-token");
+			router.push("/dashboard");
+		} catch (error) {
+			// Handle error
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	return (
@@ -61,32 +95,51 @@ export default function SignIn() {
 					</div>
 				</div>
 
-				<form onSubmit={handleSubmit} className="space-y-4">
-					<div className="space-y-2">
-						<Label htmlFor="email">Email</Label>
-						<Input
-							id="email"
-							placeholder="m@example.com"
-							required
-							type="email"
-							disabled={isLoading}
+				<Form {...form}>
+					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+						<FormField
+							control={form.control}
+							name="email"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Email</FormLabel>
+									<FormControl>
+										<Input
+											placeholder="m@example.com"
+											type="email"
+											{...field}
+											disabled={isLoading}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
 						/>
-					</div>
-					<div className="space-y-2">
-						<Label htmlFor="password">Password</Label>
-						<Input
-							id="password"
-							required
-							type="password"
-							disabled={isLoading}
-							placeholder="********"
-						/>
-					</div>
 
-					<Button className="w-full" type="submit" disabled={isLoading}>
-						{isLoading ? "Signing in..." : "Sign in"}
-					</Button>
-				</form>
+						<FormField
+							control={form.control}
+							name="password"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Password</FormLabel>
+									<FormControl>
+										<Input
+											type="password"
+											placeholder="********"
+											{...field}
+											disabled={isLoading}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+
+						<Button className="w-full" type="submit" disabled={isLoading}>
+							{isLoading ? "Signing in..." : "Sign in"}
+						</Button>
+					</form>
+				</Form>
 			</div>
 
 			<div className="text-center text-sm">

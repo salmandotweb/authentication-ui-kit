@@ -4,24 +4,72 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { setCookie } from "cookies-next";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "@/components/ui/form";
+
+const signUpSchema = z.object({
+	firstName: z.string().min(2, {
+		message: "First name must be at least 2 characters.",
+	}),
+	lastName: z.string().min(2, {
+		message: "Last name must be at least 2 characters.",
+	}),
+	email: z.string().email({
+		message: "Please enter a valid email address.",
+	}),
+	password: z
+		.string()
+		.min(8, {
+			message: "Password must be at least 8 characters.",
+		})
+		.regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, {
+			message:
+				"Password must contain at least one uppercase letter, one lowercase letter, and one number.",
+		}),
+});
+
+type SignUpValues = z.infer<typeof signUpSchema>;
 
 export default function SignUp() {
 	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
 
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
+	const form = useForm<SignUpValues>({
+		resolver: zodResolver(signUpSchema),
+		defaultValues: {
+			firstName: "",
+			lastName: "",
+			email: "",
+			password: "",
+		},
+	});
+
+	const onSubmit = async (values: SignUpValues) => {
 		setIsLoading(true);
-		// Add your sign-up logic here
-		// For demo, we'll just simulate a delay
-		await new Promise((resolve) => setTimeout(resolve, 1000));
-		setCookie("authToken", "demo-token");
-		router.push("/dashboard");
+		try {
+			// Add your sign-up logic here
+			// For demo, we'll just simulate a delay
+			await new Promise((resolve) => setTimeout(resolve, 1000));
+			setCookie("authToken", "demo-token");
+			router.push("/dashboard");
+		} catch (error) {
+			// Handle error
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	return (
@@ -61,54 +109,88 @@ export default function SignUp() {
 					</div>
 				</div>
 
-				<form onSubmit={handleSubmit} className="space-y-4">
-					<div className="grid grid-cols-2 gap-4">
-						<div className="space-y-2">
-							<Label htmlFor="firstName">First name</Label>
-							<Input
-								id="firstName"
-								placeholder="John"
-								required
-								disabled={isLoading}
+				<Form {...form}>
+					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+						<div className="grid grid-cols-2 gap-4">
+							<FormField
+								control={form.control}
+								name="firstName"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>First name</FormLabel>
+										<FormControl>
+											<Input
+												placeholder="John"
+												{...field}
+												disabled={isLoading}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="lastName"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Last name</FormLabel>
+										<FormControl>
+											<Input
+												placeholder="Doe"
+												{...field}
+												disabled={isLoading}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
 							/>
 						</div>
-						<div className="space-y-2">
-							<Label htmlFor="lastName">Last name</Label>
-							<Input
-								id="lastName"
-								placeholder="Doe"
-								required
-								disabled={isLoading}
-							/>
-						</div>
-					</div>
 
-					<div className="space-y-2">
-						<Label htmlFor="email">Email</Label>
-						<Input
-							id="email"
-							placeholder="m@example.com"
-							required
-							type="email"
-							disabled={isLoading}
+						<FormField
+							control={form.control}
+							name="email"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Email</FormLabel>
+									<FormControl>
+										<Input
+											placeholder="m@example.com"
+											type="email"
+											{...field}
+											disabled={isLoading}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
 						/>
-					</div>
 
-					<div className="space-y-2">
-						<Label htmlFor="password">Password</Label>
-						<Input
-							id="password"
-							required
-							type="password"
-							disabled={isLoading}
-							placeholder="********"
+						<FormField
+							control={form.control}
+							name="password"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Password</FormLabel>
+									<FormControl>
+										<Input
+											type="password"
+											placeholder="********"
+											{...field}
+											disabled={isLoading}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
 						/>
-					</div>
 
-					<Button className="w-full" type="submit" disabled={isLoading}>
-						{isLoading ? "Creating account..." : "Create account"}
-					</Button>
-				</form>
+						<Button className="w-full" type="submit" disabled={isLoading}>
+							{isLoading ? "Creating account..." : "Create account"}
+						</Button>
+					</form>
+				</Form>
 			</div>
 
 			<div className="text-center text-sm">
