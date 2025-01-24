@@ -2,9 +2,12 @@
 
 import { PersonIcon } from "@radix-ui/react-icons";
 import { Revenue } from "./components/revenue";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Profile from "./components/profile";
+import useUser from "@/hooks/useUser";
 
 export default function DashboardPage() {
+	const user = useUser();
+
 	return (
 		<div className="w-full h-full flex flex-col items-start gap-4 sm:gap-6">
 			<Revenue />
@@ -17,27 +20,14 @@ export default function DashboardPage() {
 					</div>
 				</div>
 
-				<div className="flex flex-col w-full items-center justify-center gap-4 text-white">
-					<Avatar className="w-32 h-32 rounded-full">
-						<AvatarImage src="https://github.com/salmandotweb.png" />
-						<AvatarFallback>SN</AvatarFallback>
-					</Avatar>
-					<div className="flex flex-col items-center justify-center">
-						<p className="text-md font-semibold">Shipcrew Co-Founder</p>
-						<p className="text-md font-normal">salmandotweb@gmail.com</p>
-					</div>
-
-					<div className="grid grid-cols-2 gap-2 w-full text-primary">
-						<div className="w-full rounded-2xl bg-white p-4 flex items-center justify-center flex-col h-[100px]">
-							<p className="text-sm font-medium">Total Sales</p>
-							<p className="text-md font-semibold">100</p>
-						</div>
-						<div className="w-full rounded-2xl bg-white p-4 flex items-center justify-center flex-col h-[100px]">
-							<p className="text-sm font-medium">Total Revenue</p>
-							<p className="text-md font-semibold">$100,000</p>
-						</div>
-					</div>
-				</div>
+				<Profile
+					user={{
+						...user,
+						position: "Co-Founder",
+						totalSales: 100,
+						totalRevenue: 100000,
+					}}
+				/>
 			</div>
 		</div>
 	);
