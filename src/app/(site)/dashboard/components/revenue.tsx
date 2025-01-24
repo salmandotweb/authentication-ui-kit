@@ -180,7 +180,7 @@ export function Revenue() {
 				</div>
 				<Select value={timeRange} onValueChange={setTimeRange}>
 					<SelectTrigger
-						className="h-9 w-[130px]"
+						className="h-9 w-[130px] rounded-full"
 						aria-label="Select time range"
 					>
 						<SelectValue placeholder="Select range" />
@@ -203,7 +203,7 @@ export function Revenue() {
 								<stop
 									offset="0%"
 									stopColor="hsl(var(--primary))"
-									stopOpacity={0.2}
+									stopOpacity={0.25}
 								/>
 								<stop
 									offset="100%"
@@ -215,7 +215,7 @@ export function Revenue() {
 								<stop
 									offset="0%"
 									stopColor="hsl(var(--muted-foreground))"
-									stopOpacity={0.2}
+									stopOpacity={0.25}
 								/>
 								<stop
 									offset="100%"
@@ -227,14 +227,15 @@ export function Revenue() {
 						<CartesianGrid
 							vertical={false}
 							stroke="hsl(var(--border))"
-							opacity={0.4}
+							opacity={0.3}
+							strokeDasharray="4 4"
 						/>
 						<XAxis
 							dataKey="date"
 							tickLine={false}
 							axisLine={false}
-							tickMargin={10}
-							minTickGap={40}
+							tickMargin={12}
+							minTickGap={50}
 							tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
 							tickFormatter={(value) => {
 								const date = new Date(value);
@@ -246,7 +247,7 @@ export function Revenue() {
 						/>
 						<ChartTooltip
 							cursor={{
-								stroke: "hsl(var(--border))",
+								stroke: "hsl(var(--primary))",
 								strokeWidth: 1,
 								strokeDasharray: "4 4",
 							}}
@@ -270,6 +271,7 @@ export function Revenue() {
 										});
 									}}
 									indicator="dot"
+									className="rounded-2xl border-2 border-border/50"
 								/>
 							}
 						/>
@@ -278,7 +280,7 @@ export function Revenue() {
 							type="monotone"
 							fill="url(#fillRecurring)"
 							stroke="hsl(var(--primary))"
-							strokeWidth={2}
+							strokeWidth={2.5}
 							stackId="a"
 						/>
 						<Area
@@ -286,7 +288,7 @@ export function Revenue() {
 							type="monotone"
 							fill="url(#fillOneTime)"
 							stroke="hsl(var(--muted-foreground))"
-							strokeWidth={2}
+							strokeWidth={2.5}
 							stackId="a"
 						/>
 						<ChartLegend
