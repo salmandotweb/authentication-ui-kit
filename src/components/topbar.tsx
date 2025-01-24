@@ -47,53 +47,59 @@ const Topbar = () => {
 	};
 
 	return (
-		<div className="w-full bg-white p-2 sm:p-4 flex items-center justify-between">
-			<div className="flex items-center gap-2">
-				<Image
-					src={siteConfig.logo}
-					alt={siteConfig.name}
-					width={28}
-					height={28}
-				/>
-				<h1 className="text-2xl font-semibold">{siteConfig.name}</h1>
+		<div className="w-full p-2 sm:p-4 grid grid-cols-4 gap-3">
+			<div>
+				<div className="flex w-fit items-center gap-2 bg-white rounded-3xl px-4 py-2">
+					<Image
+						src={siteConfig.logo}
+						alt={siteConfig.name}
+						width={28}
+						height={28}
+					/>
+					<h1 className="text-2xl font-semibold">{siteConfig.name}</h1>
+				</div>
 			</div>
 
-			<div className="flex items-center gap-2">
-				{links.map((link) => (
-					<Link key={link.href} href={link.href}>
-						<Button
-							variant="ghost"
-							icon={link.icon}
-							className={cn(
-								"text-md",
-								isActive(link.href) &&
-									"text-primary hover:text-primary bg-primary/20",
-								"hover:text-primary hover:bg-primary/20"
-							)}
-						>
-							{link.label}
-						</Button>
-					</Link>
-				))}
+			<div className="col-span-2">
+				<div className="flex items-center gap-2 bg-white w-fit rounded-[40px] px-4 py-2">
+					{links.map((link) => (
+						<Link key={link.href} href={link.href}>
+							<Button
+								variant="ghost"
+								icon={link.icon}
+								className={cn(
+									"text-md",
+									isActive(link.href) &&
+										"text-primary hover:text-primary bg-primary/20",
+									"hover:text-primary hover:bg-primary/20"
+								)}
+							>
+								{link.label}
+							</Button>
+						</Link>
+					))}
+				</div>
 			</div>
 
-			<div className="flex items-center gap-2">
-				<Button
-					variant="default"
-					className="justify-start text-left font-normal bg-gray-200 hover:bg-gray-300 text-black w-[260px]"
-					onClick={() => {}}
-				>
-					<SearchingIcon className="mr-2 h-4 w-4" />
-					<span className="hidden sm:inline">Search...</span>
-				</Button>
+			<div className="w-full col-span-1 flex items-center justify-end">
+				<div className="flex items-center w-fit gap-2 bg-white rounded-[40px] px-4 py-2">
+					<Button
+						variant="default"
+						className="justify-start text-left font-normal bg-gray-200 hover:bg-gray-300 text-black w-[230px]"
+						onClick={() => {}}
+					>
+						<SearchingIcon className="mr-2 h-4 w-4" />
+						<span className="hidden sm:inline">Search...</span>
+					</Button>
 
-				<Button variant="secondary" className="bg-gray-200 hover:bg-gray-300">
-					<Notification01Icon className="h-4 w-4" />
-				</Button>
+					<Button variant="secondary" className="bg-gray-200 hover:bg-gray-300">
+						<Notification01Icon className="h-4 w-4" />
+					</Button>
 
-				<Button variant="secondary" className="bg-gray-200 hover:bg-gray-300">
-					<UserCircle2 className="h-4 w-4" />
-				</Button>
+					<Button variant="secondary" className="bg-gray-200 hover:bg-gray-300">
+						<UserCircle2 className="h-4 w-4" />
+					</Button>
+				</div>
 			</div>
 		</div>
 	);
