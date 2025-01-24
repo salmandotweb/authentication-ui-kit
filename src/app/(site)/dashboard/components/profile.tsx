@@ -8,14 +8,18 @@ const Profile = ({
 	user: User & { position: string; totalSales: number; totalRevenue: number };
 }) => {
 	return (
-		<div className="w-full h-[420px] bg-primary/80 rounded-3xl p-3 flex flex-col items-center justify-between">
-			<div className="w-full px-3 py-2 rounded-full bg-white/10 text-white flex items-center justify-between cursor-pointer hover:bg-white/20 transition-all duration-300">
+		<div className="w-full h-[420px] bg-primary/80 rounded-3xl p-3 flex flex-col items-center justify-between relative overflow-hidden">
+			<div className="absolute inset-0">
+				<div className="absolute inset-0 bg-[linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black_70%,transparent_110%)] opacity-10" />
+			</div>
+
+			<div className="w-full px-3 py-2 rounded-full bg-white/10 text-white flex items-center justify-between cursor-pointer hover:bg-white/20 transition-all duration-300 relative z-10">
 				<p className="text-sm font-medium">Your Profile</p>
 				<div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
 					<PersonIcon className="w-4 h-4" />
 				</div>
 			</div>
-			<div className="flex flex-col w-full items-center justify-center gap-4 text-white">
+			<div className="flex flex-col w-full items-center justify-center gap-4 text-white relative z-10">
 				<Avatar className="w-32 h-32 rounded-full">
 					<AvatarImage src={user.avatarUrl || ""} />
 					<AvatarFallback>{user.firstName.charAt(0)}</AvatarFallback>
