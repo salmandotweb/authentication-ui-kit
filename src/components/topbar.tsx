@@ -15,6 +15,8 @@ import { Button } from "./ui/button";
 import { UserCircle2 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { SearchCommand } from "./search-command";
+import { NotificationsDropdown } from "./notifications";
 
 const links = [
 	{
@@ -83,18 +85,9 @@ const Topbar = () => {
 
 			<div className="w-full col-span-1 flex items-center justify-end">
 				<div className="flex items-center w-fit gap-2 bg-white rounded-[40px] px-4 py-2">
-					<Button
-						variant="default"
-						className="justify-start text-left font-normal bg-gray-200 hover:bg-gray-300 text-black w-[230px]"
-						onClick={() => {}}
-					>
-						<SearchingIcon className="mr-2 h-4 w-4" />
-						<span className="hidden sm:inline">Search...</span>
-					</Button>
+					<SearchCommand />
 
-					<Button variant="secondary" className="bg-gray-200 hover:bg-gray-300">
-						<Notification01Icon className="h-4 w-4" />
-					</Button>
+					<NotificationsDropdown />
 
 					<Button variant="secondary" className="bg-gray-200 hover:bg-gray-300">
 						<UserCircle2 className="h-4 w-4" />
