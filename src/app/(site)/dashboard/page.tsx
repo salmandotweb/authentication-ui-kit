@@ -6,6 +6,7 @@ import { SalesOverview } from "./components/sales-overview";
 import { TopProducts } from "./components/top-products";
 import { ConversionRate } from "./components/conversion-rate";
 import { UserActivity } from "./components/user-activity";
+import { CTACards } from "./components/cta-cards";
 import Profile from "./components/profile";
 import useUser from "@/hooks/useUser";
 
@@ -30,6 +31,9 @@ export default function DashboardPage() {
 			<UserActivity />
 			<TopProducts />
 			<SalesOverview />
+			<div className="md:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 pb-6">
+				<CTACards />
+			</div>
 		</div>
 	);
 }

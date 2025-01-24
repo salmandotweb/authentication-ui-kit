@@ -8,7 +8,7 @@ const Profile = ({
 	user: User & { position: string; totalSales: number; totalRevenue: number };
 }) => {
 	return (
-		<div className="w-full h-[420px] bg-primary/70 rounded-3xl p-3 flex flex-col items-center justify-between">
+		<div className="w-full h-[420px] bg-primary/80 rounded-3xl p-3 flex flex-col items-center justify-between">
 			<div className="w-full px-3 py-2 rounded-full bg-white/10 text-white flex items-center justify-between cursor-pointer hover:bg-white/20 transition-all duration-300">
 				<p className="text-sm font-medium">Your Profile</p>
 				<div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
