@@ -51,15 +51,17 @@ const Topbar = () => {
 	return (
 		<div className="w-full p-2 sm:p-4 grid grid-cols-4 gap-3">
 			<div>
-				<div className="flex w-fit items-center gap-2 bg-white rounded-3xl px-4 py-2">
-					<Image
-						src={siteConfig.logo}
-						alt={siteConfig.name}
-						width={28}
-						height={28}
-					/>
-					<h1 className="text-2xl font-semibold">{siteConfig.name}</h1>
-				</div>
+				<Link href="/">
+					<div className="flex w-fit items-center gap-2 bg-white rounded-3xl px-4 py-2">
+						<Image
+							src={siteConfig.logo}
+							alt={siteConfig.name}
+							width={28}
+							height={28}
+						/>
+						<h1 className="text-2xl font-semibold">{siteConfig.name}</h1>
+					</div>
+				</Link>
 			</div>
 
 			<div className="col-span-2">
