@@ -17,8 +17,8 @@ export default function DashboardPage() {
 			<div className="md:col-span-3">
 				<Revenue />
 			</div>
+			<ConversionRate />
 			<ActiveUsers />
-			<SalesOverview />
 			<Profile
 				user={{
 					...user,
@@ -27,9 +27,9 @@ export default function DashboardPage() {
 					totalRevenue: 100000,
 				}}
 			/>
-			<ConversionRate />
-			<TopProducts />
 			<UserActivity />
+			<TopProducts />
+			<SalesOverview />
 		</div>
 	);
 }
