@@ -121,7 +121,7 @@ const Header = () => {
 								className="rounded-xl border bg-card/50 backdrop-blur shadow-2xl overflow-hidden"
 							>
 								<Image
-									src="/images/preview.png"
+									src="/images/dashboard.png"
 									alt="Auth UI Kit Preview"
 									width={800}
 									height={600}
