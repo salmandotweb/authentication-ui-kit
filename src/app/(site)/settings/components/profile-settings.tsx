@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { User } from "@/interfaces/user";
+import { AvatarUploadDialog } from "@/components/avatar-upload-dialog";
 
 interface ProfileSettingsProps {
 	user: User;
@@ -15,6 +16,11 @@ export function ProfileSettings({
 	onSave,
 	isLoading,
 }: ProfileSettingsProps) {
+	const handleAvatarChange = (file: File) => {
+		// call api to update avatar url
+		console.log("Avatar file selected:", file);
+	};
+
 	return (
 		<div className="space-y-6">
 			<Card>
@@ -27,7 +33,10 @@ export function ProfileSettings({
 							<AvatarImage src={user.avatarUrl || ""} />
 							<AvatarFallback>{user.firstName?.charAt(0)}</AvatarFallback>
 						</Avatar>
-						<Button variant="outline">Change Avatar</Button>
+						<AvatarUploadDialog
+							user={user}
+							onAvatarChange={handleAvatarChange}
+						/>
 					</div>
 
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
