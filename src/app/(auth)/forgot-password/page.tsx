@@ -76,8 +76,8 @@ export default function ForgotPassword() {
 				</div>
 				<h1 className="text-3xl font-bold">Reset your password</h1>
 				<p className="text-muted-foreground">
-					Enter your email address and we'll send you instructions to reset your
-					password.
+					Enter your email address and we&apos;ll send you instructions to reset
+					your password.
 				</p>
 			</div>
 
@@ -86,12 +86,12 @@ export default function ForgotPassword() {
 					<div className="p-4 bg-primary/10 rounded-lg text-center space-y-2">
 						<p className="font-medium">Check your inbox</p>
 						<p className="text-sm text-muted-foreground">
-							We've sent you a password reset link. The link will expire in 1
-							hour.
+							We&apos;ve sent you a password reset link. The link will expire in
+							1 hour.
 						</p>
 					</div>
 					<Button className="w-full" onClick={() => setEmailSent(false)}>
-						Didn't receive the email? Try again
+						Didn&apos;t receive the email? Try again
 					</Button>
 				</div>
 			) : (
