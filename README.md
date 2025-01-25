@@ -1,36 +1,115 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Auth UI Kit
+
+Modern authentication UI kit built with Next.js, Tailwind CSS and Shadcn UI.
+
+## Overview
+
+Auth UI Kit is a comprehensive authentication interface toolkit that provides a modern, responsive, and customizable solution for implementing user authentication flows in web applications. Built with the latest web technologies, it offers a seamless integration experience and beautiful UI components.
+
+## Features
+
+- 🎨 Modern and responsive design
+- 🔐 Complete authentication flows
+- 📊 Dashboard with analytics
+- 📱 Mobile-friendly interface
+- 📈 Interactive charts and graphs
+- 🔔 Real-time notifications
+- 👥 User management
+- 🔄 Connected accounts integration
+- ⚡ Fast and optimized performance
+
+## Tech Stack
+
+- [Next.js 14](https://nextjs.org/)
+- [React 18](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Shadcn UI](https://ui.shadcn.com/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [React Query](https://tanstack.com/query/latest)
+- [Recharts](https://recharts.org/)
+- [Zod](https://zod.dev/)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/auth-ui-kit.git
+```
+
+2. Navigate to the project directory:
+
+```bash
+cd auth-ui-kit
+```
+
+3. Install dependencies:
+
+```bash
+npm install
+```
+
+4. Create a `.env` file in the root directory and add your environment variables:
+
+```bash
+NEXT_PUBLIC_API_URL=http://localhost:3000
+```
+
+5. Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- `app/` # App router pages
+- `components/` # Reusable components
+- `config/` # Configuration files
+- `hooks/` # Custom React hooks
+- `lib/` # Utility functions
+- `interfaces/` # TypeScript interfaces
+- `providers/` # React context providers
 
-## Learn More
+## Features in Detail
 
-To learn more about Next.js, take a look at the following resources:
+### Authentication
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Login/Register flows
+- Password reset
+- Email verification
+- OAuth integration (Google, GitHub)
+- Session management
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Dashboard
 
-## Deploy on Vercel
+- Analytics overview
+- Sales metrics
+- User activity tracking
+- Interactive charts
+- Real-time data visualization
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Settings
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Profile management
+- Connected accounts
+- Billing settings
+- Notification preferences
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
