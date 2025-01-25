@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Shield, Smartphone, Key } from "lucide-react";
+import { PasswordChangeDialog } from "@/components/password-change-dialog";
 
 interface SecuritySettingsProps {
 	onSave: () => Promise<void>;
@@ -9,6 +10,16 @@ interface SecuritySettingsProps {
 }
 
 export function SecuritySettings({ onSave, isLoading }: SecuritySettingsProps) {
+	const handlePasswordChange = async (values: {
+		currentPassword: string;
+		newPassword: string;
+		confirmPassword: string;
+	}) => {
+		// Call API to update password
+		console.log("Password change values:", values);
+		await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate API call
+	};
+
 	return (
 		<div className="space-y-6">
 			<Card>
@@ -45,10 +56,7 @@ export function SecuritySettings({ onSave, isLoading }: SecuritySettingsProps) {
 					<p className="text-sm text-muted-foreground">
 						Last changed 3 months ago
 					</p>
-					<Button variant="outline" className="w-full">
-						<Key className="w-4 h-4 mr-2" />
-						Change Password
-					</Button>
+					<PasswordChangeDialog onPasswordChange={handlePasswordChange} />
 				</CardContent>
 			</Card>
 
